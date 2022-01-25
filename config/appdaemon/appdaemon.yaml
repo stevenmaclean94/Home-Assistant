@@ -4,7 +4,7 @@ logs:
   access_log: 
     filename: /export/appdaemon/logs/access.log
   error_log: 
-    filename:/export/appdaemon/logs/error.log
+    filename: /export/appdaemon/logs/error.log
   main_log: 
     filename: /export/appdaemon/logs/appdaemon.log
 appdaemon:
