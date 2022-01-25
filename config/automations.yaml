@@ -1,0 +1,14 @@
+- id: '1238451014602'
+  alias: sensor_values_to_file
+  trigger:
+  - platform: time_pattern
+    seconds: /1
+  action:
+  - service: notify.filenotify
+    data_template:
+      message: '{{states.input_select.room_for_training.last_changed}}, {{states.input_select.room_for_training.state
+        }},  {{states.sensor.steven_beacon_rssi_bedroom.last_changed }},  {{states.sensor.steven_beacon_rssi_bedroom.state
+        }},  {{states.sensor.steven_beacon_rssi_kitchen.last_changed }}, {{states.sensor.steven_beacon_rssi_kitchen.state
+        }},  {{states.sensor.steven_beacon_rssi_living_room.last_changed }},  {{states.sensor.steven_beacon_rssi_living_room.state
+        }},  {{states.sensor.steven_beacon_rssi_office.last_changed }}, {{states.sensor.steven_beacon_rssi_office.state
+        }}'

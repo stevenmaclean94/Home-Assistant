@@ -1,0 +1,3 @@
+[submodule "appdaemon/apps/ad-espresense-ips"]
+	path = appdaemon/apps/ad-espresense-ips
+	url = https://github.com/stevenmaclean94/ad-espresense-ips.git

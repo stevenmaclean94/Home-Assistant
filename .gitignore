@@ -1,0 +1,9 @@
+*.db
+*.db-shm
+*.db-wal
+*.log*
+
+secrets.yaml
+.HA_VERSION
+.cloud
+.storage

@@ -1,0 +1,23 @@
+---
+secrets: /home/pi/HomeAssistant/config/secrets.yaml
+# logs:
+#   access_log: /export/hass/appdaemon_test/logs/access.log
+#   error_log: /export/hass/appdaemon_test/logs/error.log
+#   main_log: /export/hass/appdaemon_test/logs/appdaemon.log
+#   log_generations: 3
+#   log_size: 1024
+appdaemon:
+  latitude: 43.603901
+  longitude: -116.191852
+  elevation: 858
+  time_zone: America/Boise
+  plugins:
+    HASS:
+      type: hass
+      token: !secret hass_token
+      ha_url: http://192.168.10.6:8123
+http:
+  url: http://127.0.0.1:5050
+admin:
+api:
+hadashboard:

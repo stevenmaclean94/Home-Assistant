@@ -1,0 +1,40 @@
+---
+office_bathroom_motion:
+  module: MotionLights
+  class: MotionLights
+  sensors:
+    motion_on: binary_sensor.office_bathroom_motion_detection
+    motion_off: binary_sensor.office_bathroom_motion_detection
+    humidity: sensor.office_bathroom_humidity
+  light: light.office_bathroom
+  timeout: 600
+bathroom_motion:
+  module: MotionLights
+  class: MotionLights
+  sensors:
+    motion_on: binary_sensor.bathroom_entrance_motion_detection
+    motion_off: binary_sensor.bathroom_motion_detection
+    humidity: sensor.bathroom_humidity
+  light: light.bathroom
+  timeout: 600
+office_humidity:
+  module: BathroomHumidity
+  class: BathroomHumidity
+  fan: switch.office_bathroom_fan
+  humidity_sensor: sensor.office_bathroom_humidity
+  humidity_trigger: input_number.humidity_trigger
+master_bathroom_humidity:
+  module: BathroomHumidity
+  class: BathroomHumidity
+  fan: switch.bathroom_fan
+  humidity_sensor: sensor.bathroom_humidity
+  humidity_trigger: input_number.humidity_trigger
+
+detect_room:
+  module: PresenceLights
+  class: PresenceLights
+  sensors:
+    office: sensor.steven_beacon_rssi_office
+    living_room: sensor.steven_beacon_rssi_living_room
+    kitchen: sensor.steven_beacon_rssi_kitchen
+    bedroom: sensor.steven_beacon_rssi_bedroom

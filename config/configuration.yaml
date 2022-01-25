@@ -1,0 +1,135 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+# group: !include groups.yaml
+automation: !include automations.yaml
+# script: !include scripts.yaml
+# scene: !include scenes.yaml
+
+notify:
+  - platform: file
+    name: filenotify
+    filename: /config/1sec_rssi_reading.csv
+
+fan: 
+  - platform: xiaomi_miio_fan
+    name: Pedastal Fan
+    host: 192.168.10.203
+    token: !secret fan_token
+
+rest_command:
+    open_door: 
+        url: !secret door_webhook
+    open_garage: 
+        url: !secret garage_webhook
+    open_bike:
+        url: !secret bike_webhook
+emulated_kasa:
+  entities:
+    switch.desktop:
+      name: Desktop
+      power_entity: sensor.desktop_energy_power
+    switch.kitchen_light:
+      name: Kitchen Lights
+      power: 35
+    switch.office_light_3:
+      name: Office Lights
+      power: 17
+    switch.living_room_light_2:
+      name: Living Room Lights
+      power: 17
+    switch.tv:
+      name: TV
+      power_entity: sensor.tv_energy_power
+    switch.bathroom_fan:
+      name: Bathroom Fan
+      power: 9
+    switch.office_bathroom_fan:
+      name: Office Bathroom Fan
+      power: 9
+
+    
+# input_number:
+#   beer_og:
+#     name: Starting Gravity
+#     mode: box
+#     min: 1.03
+#     max: 1.1
+#     step: 0.001
+#     icon: mdi:thermometer-lines
+# template:
+#   - sensor:
+    # - name: "mail_deliveries_message"
+    #   state_value_template: > 
+    #     {# Deliveries Sentence #}
+    #       {% macro deliveries_sentence() -%}
+    #             {%- if states("sensor.mail_usps_mail")|int == 0 -%}
+    #               No
+    #             {%- else -%}
+    #               {{states("sensor.mail_usps_mail")|int}}
+    #             {%- endif -%}
+    #           {{' '}} 
+    #             {%- if states("sensor.mail_usps_mail")|int <= 1 -%}
+    #               pieces of mail
+    #             {%- else -%}
+    #               pieces of mail
+    #             {%- endif -%}
+    #           {{' '}}will be delivered.{{' '}} 
+    #             {%- if states("sensor.mail_usps_delivering")|int == 0 -%}
+    #               No
+    #             {%- else -%}
+    #               {{states("sensor.mail_usps_delivering")|int}}
+    #             {%- endif -%}
+    #           {{' '}} 
+    #             {%- if states("sensor.mail_usps_delivering")|int == 1 -%}
+    #               USPS package is
+    #             {%- else -%}
+    #               USPS packages are
+    #             {%- endif -%}
+    #           {{' '}}in transit.{{' '}}
+    #             {%- if states("sensor.mail_fedex_delivering")|int == 0 -%}
+    #               No
+    #             {%- else -%}
+    #               {{states("sensor.mail_fedex_delivering")|int}}
+    #             {%- endif -%}
+    #           {{' '}} 
+    #             {%- if states("sensor.mail_fedex_delivering")|int == 1 -%}
+    #               FedEx package is
+    #             {%- else -%}
+    #               Fedex packages are
+    #             {%- endif -%}
+    #           {{' '}}in transit.{{' '}}
+    #           {%- if states("sensor.mail_ups_delivering")|int == 0 -%}
+    #               No
+    #             {%- else -%}
+    #               {{states("sensor.mail_ups_delivering")|int}}
+    #             {%- endif -%}
+    #           {{' '}} 
+    #             {%- if states("sensor.mail_ups_delivering")|int == 1 -%}
+    #               UPS package is
+    #             {%- else -%}
+    #               UPS packages are
+    #             {%- endif -%}
+    #           {{' '}}in transit.{{' '}}
+    #           {%- if states("sensor.mail_amazon_packages")|int == 0 -%}
+    #               No
+    #             {%- else -%}
+    #               {{states("sensor.mail_amazon_packages")|int}}
+    #             {%- endif -%}
+    #           {{' '}} 
+    #             {%- if states("sensor.mail_amazon_packages")|int == 1 -%}
+    #               Amazon package is
+    #             {%- else -%}
+    #               Amazon packages are
+    #             {%- endif -%}
+    #           {{' '}}in transit.{{' '}}
+    #       {%- endmacro %}
+    #     {{deliveries_sentence()}}
+    # - name: "Desktop Power kWh"
+    #   unit_of_measurement: "kWh"
+    #   state: sensor.desktop_energy_today
