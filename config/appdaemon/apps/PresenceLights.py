@@ -8,15 +8,14 @@ class PresenceLights(hass.Hass):
 
     def initialize(self):
         self.log('initializing ...')
-
         self.mlmodel = svm.SVC()
-        self.mlmodel = joblib.load('lights.joblib')
+        self.mlmodel = joblib.load('/home/pi/HomeAssistant/config/MLModels/lights.joblib')
         self.rooms = [' Office', ' Living Room', ' Kitchen', ' Office Bathroom', ' Bedroom', ' Master Bathroom']
         self.listen_state(self.__newstate, self.args["sensors"]["office"])
         self.listen_state(self.__newstate, self.args["sensors"]["living_room"])
         self.listen_state(self.__newstate, self.args["sensors"]["kitchen"])
         self.listen_state(self.__newstate, self.args["sensors"]["bedroom"])
-        self.interpreter = tf.Interpreter(model_path='model.tflite')
+        self.interpreter = tf.Interpreter(model_path='/home/pi/HomeAssistant/config/MLModels/model.tflite')
         self.input_details = self.interpreter.get_input_details()
         self.output_details = self.interpreter.get_output_details()
         self.interpreter.allocate_tensors()

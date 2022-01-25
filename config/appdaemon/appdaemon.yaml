@@ -20,7 +20,8 @@ appdaemon:
     MQTT:
       type: mqtt
       client_host: 192.168.10.6
-      namespace: default
+      client_port: 1883
+      namespace: mqtt
       birth_topic: appdaemon
       will_topic: appdaemon
 http:
