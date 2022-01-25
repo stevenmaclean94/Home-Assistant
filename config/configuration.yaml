@@ -11,6 +11,33 @@ automation: !include automations.yaml
 # script: !include scripts.yaml
 # scene: !include scenes.yaml
 
+sensor:
+  - platform: mqtt_room
+    name: "Steven's IPS Room"
+    state_topic: 'espresense/location'
+    device_id: "iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949"
+    timeout: 60
+    away_timeout: 120
+  - platform: mqtt
+    name: Steven Beacon RSSI Office
+    state_topic: 'espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/office'
+    unit_of_measurement: dBm
+    value_template: "{{value_json.rssi}}"
+  - platform: mqtt
+    name: Steven Beacon RSSI Living Room
+    state_topic: 'espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/living_room'
+    unit_of_measurement: dBm
+    value_template: "{{value_json.rssi}}"
+  - platform: mqtt
+    name: Steven Beacon RSSI Kitchen
+    state_topic: 'espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/kitchen'
+    unit_of_measurement: dBm
+    value_template: "{{value_json.rssi}}"
+  - platform: mqtt
+    name: Steven Beacon RSSI Bedroom
+    state_topic: 'espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/bedroom'
+    unit_of_measurement: dBm
+    value_template: "{{value_json.rssi}}"
 notify:
   - platform: file
     name: filenotify
