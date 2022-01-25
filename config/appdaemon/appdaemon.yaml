@@ -7,8 +7,6 @@ logs:
     filename:/export/appdaemon/logs/error.log
   main_log: 
     filename: /export/appdaemon/logs/appdaemon.log
-  log_generations: 3
-  log_size: 1024
 appdaemon:
   latitude: 43.603901
   longitude: -116.191852
