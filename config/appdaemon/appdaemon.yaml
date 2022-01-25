@@ -16,6 +16,12 @@ appdaemon:
       type: hass
       token: !secret hass_token
       ha_url: http://192.168.10.6:8123
+    MQTT:
+      type: mqtt
+      client_host: 192.168.10.6
+      namespace: default
+      birth_topic: appdaemon
+      will_topic: appdaemon
 http:
   url: http://127.0.0.1:5050
 admin:

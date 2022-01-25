@@ -38,3 +38,52 @@ detect_room:
     living_room: sensor.steven_beacon_rssi_living_room
     kitchen: sensor.steven_beacon_rssi_kitchen
     bedroom: sensor.steven_beacon_rssi_bedroom
+
+
+ESPresenseIps:
+  module: espresense-ips
+  class: ESPresenseIps
+  pluggins:
+    - HASS
+    - MQTT
+  rooms:
+    office: [0., 2.7, 0.]
+    living_room: [6.8, 0., 0.]
+    kitchen: [3.3, 6.5, 0.]
+    bedroom: [9.8, 3.9, 0.]
+  devices:
+  - id: iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949
+    name: Steven Beacon
+    timeout: 30
+    away_timeout: 120
+  roomplans:
+  - name: living_room
+    y1: 0.0
+    x1: 3.3
+    y2: 4.9
+    x2: 7.8
+  - name: kitchen
+    y1: 4.9
+    x1: 3.3
+    y2: 9.2
+    x2: 6.9
+  - name: bathroom
+    y1: 4.4
+    x1: 6.9
+    y2: 8.3
+    x2: 9.3
+  - name: bedroom
+    y1: 0
+    x1: 7.8
+    y2: 4.4
+    x2: 11.9
+  - name: office
+    y1: 0.0
+    x1: 0.0
+    y2: 3.6
+    x2: 3.3
+  - name: office_bathroom
+    y1: 3.6
+    x1: 0.0
+    y2: 8.3
+    x2: 1.7
