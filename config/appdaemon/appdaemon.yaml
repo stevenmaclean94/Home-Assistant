@@ -1,9 +1,12 @@
 ---
 secrets: /home/pi/HomeAssistant/config/secrets.yaml
 logs:
-  access_log: /export/appdaemon/logs/access.log
-  error_log: /export/appdaemon/logs/error.log
-  main_log: /export/appdaemon/logs/appdaemon.log
+  access_log: 
+    filename: /export/appdaemon/logs/access.log
+  error_log: 
+    filename:/export/appdaemon/logs/error.log
+  main_log: 
+    filename: /export/appdaemon/logs/appdaemon.log
   log_generations: 3
   log_size: 1024
 appdaemon:
