@@ -34,10 +34,10 @@ detect_room:
   module: PresenceLights
   class: PresenceLights
   sensors:
-    office: sensor.steven_beacon_rssi_office
-    living_room: sensor.steven_beacon_rssi_living_room
-    kitchen: sensor.steven_beacon_rssi_kitchen
-    bedroom: sensor.steven_beacon_rssi_bedroom
+    office: sensor.steven_beacon_rssi_office_2
+    living_room: sensor.steven_beacon_rssi_living_room_2
+    kitchen: sensor.steven_beacon_rssi_kitchen_2
+    bedroom: sensor.steven_beacon_rssi_bedroom_2
 
 
 ESPresenseIps:

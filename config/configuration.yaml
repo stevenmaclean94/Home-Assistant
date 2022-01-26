@@ -43,11 +43,11 @@ notify:
     name: filenotify
     filename: /config/1sec_rssi_reading.csv
 
-fan: 
-  - platform: xiaomi_miio_fan
-    name: Pedastal Fan
-    host: 192.168.10.203
-    token: !secret fan_token
+#fan: 
+#  - platform: xiaomi_miio_fan
+#    name: Pedastal Fan
+#    host: 192.168.10.203
+#    token: !secret fan_token
 
 rest_command:
     open_door: 
