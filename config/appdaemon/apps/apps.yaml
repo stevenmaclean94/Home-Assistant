@@ -44,11 +44,10 @@ ESPresenseIps:
   module: espresense-ips
   class: ESPresenseIps
   pluggins:
-    - HASS
     - MQTT
   rooms:
     office: [0., 2.7, 0.]
-    living_room: [6.8, 0., 0.]
+    living_room: [6.8, -0.9, 0.]
     kitchen: [3.3, 6.5, 0.]
     bedroom: [9.8, 3.9, 0.]
   devices:
@@ -58,14 +57,14 @@ ESPresenseIps:
     away_timeout: 120
   roomplans:
   - name: living_room
-    y1: 0.0
-    x1: 3.3
-    y2: 4.9
+    y1: -0.9
+    x1: 4.5
+    y2: 4.0
     x2: 7.8
   - name: kitchen
-    y1: 4.9
+    y1: 4.0
     x1: 3.3
-    y2: 9.2
+    y2: 8.3
     x2: 6.9
   - name: bathroom
     y1: 4.4
@@ -73,7 +72,7 @@ ESPresenseIps:
     y2: 8.3
     x2: 9.3
   - name: bedroom
-    y1: 0
+    y1: 0.0
     x1: 7.8
     y2: 4.4
     x2: 11.9
@@ -81,9 +80,9 @@ ESPresenseIps:
     y1: 0.0
     x1: 0.0
     y2: 3.6
-    x2: 3.3
+    x2: 4.5
   - name: office_bathroom
     y1: 3.6
     x1: 0.0
     y2: 8.3
-    x2: 1.7
+    x2: 3.3

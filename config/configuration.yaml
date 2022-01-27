@@ -18,11 +18,28 @@ sensor:
     device_id: "iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949"
     timeout: 60
     away_timeout: 120
+  - platform: mqtt_room
+    device_id: "iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949"
+    name: 'Steven Presence'
+    state_topic: 'espresense/rooms'
+    timeout: 60
+    away_timeout: 120
+  - platform: mqtt
+    name: Steven Beacon X Position
+    state_topic: 'espresense/ips/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949'
+    unit_of_measurement: m
+    value_template: "{{value_json.x}}"
+  - platform: mqtt
+    name: Steven Beacon Y Position
+    state_topic: 'espresense/ips/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949'
+    unit_of_measurement: m
+    value_template: "{{value_json.y}}"
   - platform: mqtt
     name: Steven Beacon RSSI Office
     state_topic: 'espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/office'
     unit_of_measurement: dBm
     value_template: "{{value_json.rssi}}"
+    json_attributes_topic: espresense/location/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949
   - platform: mqtt
     name: Steven Beacon RSSI Living Room
     state_topic: 'espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/living_room'
