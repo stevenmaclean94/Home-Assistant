@@ -7,8 +7,8 @@
   - service: notify.filenotify
     data_template:
       message: '{{states.input_select.room_for_training.last_changed}}, {{states.input_select.room_for_training.state
-        }},  {{states.sensor.steven_beacon_rssi_bedroom.last_changed }},  {{states.sensor.steven_beacon_rssi_bedroom.state
-        }},  {{states.sensor.steven_beacon_rssi_kitchen.last_changed }}, {{states.sensor.steven_beacon_rssi_kitchen.state
-        }},  {{states.sensor.steven_beacon_rssi_living_room.last_changed }},  {{states.sensor.steven_beacon_rssi_living_room.state
-        }},  {{states.sensor.steven_beacon_rssi_office.last_changed }}, {{states.sensor.steven_beacon_rssi_office.state
+        }},  {{states.sensor.steven_beacon_rssi_bedroom_2.last_changed }},  {{states.sensor.steven_beacon_rssi_bedroom_2.state
+        }},  {{states.sensor.steven_beacon_rssi_kitchen_2.last_changed }}, {{states.sensor.steven_beacon_rssi_kitchen_2.state
+        }},  {{states.sensor.steven_beacon_rssi_living_room_2.last_changed }},  {{states.sensor.steven_beacon_rssi_living_room_2.state
+        }},  {{states.sensor.steven_beacon_rssi_office_2.last_changed }}, {{states.sensor.steven_beacon_rssi_office_2.state
         }}'
