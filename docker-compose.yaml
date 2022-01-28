@@ -19,40 +19,6 @@ services:
     restart: unless-stopped
     privileged: true
     network_mode: host
- # appdaemon:
- #   container_name: appdaemon
- #   image: acockburn/appdaemon:latest
- #   environment:
- #     - HA_URL="http://192.168.10.10:8123"
- #     - TOKEN="eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiI3NWE3YjVjYjkwMTk0MjMxODk4OTM4NjFmZGVlMGZkOCIsImlhdCI6MTY0MjM5MTQ1NywiZXhwIjoxOTU3NzUxNDU3fQ.CRFkrJu0YGdxHFWgkJnKnJnNPpDcPn8Obq9DkSWEz64"
- #     - DASH_URL=http://192.168.10.10:5050
- #   ports:
- #     - 5050:5050
- #   volumes:
- #     - /data/docker/HA/appdaemon/config:/conf
- #   depends_on:
- #     - homeassistant
-  esphome:
-    #image: esphome/esphome:beta
-    #image: esphome/esphome:dev
-    image: esphome/esphome:latest
-    devices:
-    #  - "/dev/ttyUSB0:/dev/ttyUSB0"
-      - "/dev/bus/usb:/dev/bus/usb"
-    # - "/dev/ttyS3:/dev/ttyUSB0"
-    privileged: true
-    container_name: esphome
-    volumes:
-      - ./config/esphome/config:/config:rw
-      # Use local time for logging timestamps
-      - /etc/localtime:/etc/localtime:ro
-    # network_mode: host
-    environment:
-      - ESPHOME_DASHBOARD_USE_PING=true
-    ports:
-      - 6152:6052
-      - 6123:6123
-    restart: unless-stopped
 
   zwavejs2mqtt:
     container_name: zwavejs2mqtt
@@ -81,11 +47,11 @@ services:
     image: adguard/adguardhome
     container_name: adguardhome
     ports:
-      # - 53:53/tcp
-      # - 53:53/udp
-      # - 784:784/udp
-      # - 853:853/tcp
-      # - 3000:3000/tcp
+      - 53:53/tcp
+      - 53:53/udp
+      - 784:784/udp
+      - 853:853/tcp
+      - 3030:3000/tcp
       - 80:80/tcp
       - 443:443/tcp
     volumes:
@@ -97,4 +63,3 @@ networks:
   zwave:
 volumes:
   zwave-config:
-    #name: zwave-config
