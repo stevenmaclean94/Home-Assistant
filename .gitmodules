@@ -1,3 +1,6 @@
 [submodule "config/appdaemon/apps/ad-espresense-ips"]
 	path = config/appdaemon/apps/ad-espresense-ips
 	url = git@github.com:stevenmaclean94/ad-espresense-ips.git
+[submodule "config/appdaemon/apps/Roomba980"]
+	path = config/appdaemon/apps/Roomba980
+	url = git@github.com:stevenmaclean94/Roomba980-Python.git
