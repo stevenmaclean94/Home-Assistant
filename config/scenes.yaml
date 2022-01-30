@@ -1,0 +1,71 @@
+- id: '1643435329531'
+  name: Goodnight
+  entities:
+    light.hallway:
+      supported_color_modes:
+      - brightness
+      friendly_name: Hallway Light
+      supported_features: 32
+      state: 'off'
+    light.kitchen:
+      supported_color_modes:
+      - brightness
+      friendly_name: Kitchen
+      supported_features: 32
+      state: 'off'
+    light.living_room_lamp:
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      mode: normal
+      dynamics: none
+      friendly_name: Living Room
+      supported_features: 40
+      state: 'off'
+    switch.in_wall_smart_switch:
+      icon: mdi:lightbulb
+      friendly_name: Living Room
+      state: 'off'
+    switch.office_light:
+      friendly_name: Office Light
+      state: 'off'
+    lock.door_lock:
+      friendly_name: Door Lock
+      state: locked
+    light.bedroom:
+      min_mireds: 153
+      max_mireds: 500
+      supported_color_modes:
+      - color_temp
+      - xy
+      is_hue_group: true
+      hue_scenes:
+      - Nightlight
+      - Concentrate
+      - Bright
+      - Relax
+      - BSU
+      hue_type: room
+      lights:
+      - Bedroom Light 3
+      - Bedroom Light 4
+      - Bedroom Light  2
+      icon: mdi:lightbulb-group
+      friendly_name: Bedroom
+      supported_features: 40
+      state: 'off'
+    light.office_bathroom:
+      supported_color_modes:
+      - brightness
+      friendly_name: Office Bathroom Light
+      supported_features: 32
+      state: 'off'
+    light.bathroom:
+      supported_color_modes:
+      - brightness
+      friendly_name: Bathroom
+      supported_features: 32
+      state: 'off'
+  icon: mdi:lightbulb-multiple-off
