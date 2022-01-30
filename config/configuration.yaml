@@ -9,31 +9,49 @@ tts:
 # group: !include groups.yaml
 automation: !include automations.yaml
 # script: !include scripts.yaml
-# scene: !include scenes.yaml
+scene: !include scenes.yaml
 
 sensor:
   - platform: mqtt_room
     name: "Steven's IPS Room"
-    state_topic: 'espresense/ips/rooms'
-    device_id: "iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949"
+    state_topic: 'roomDetection/rooms'
+    device_id: "426c7565436861726d426561636f6e7338384949"
     timeout: 60
     away_timeout: 120
-  - platform: mqtt_room
-    device_id: "iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949"
-    name: 'Steven Presence'
-    state_topic: 'espresense/rooms'
-    timeout: 60
-    away_timeout: 120
+  # - platform: mqtt_room
+  #   device_id: "iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949"
+  #   name: 'Steven Presence'
+  #   state_topic: 'espresense/rooms'
+  #   timeout: 60
+  #   away_timeout: 120
+
   - platform: mqtt
     name: Steven Beacon X Position
-    state_topic: 'espresense/ips/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949'
+    state_topic: 'roomDetection/position/426c7565436861726d426561636f6e7338384949'
     unit_of_measurement: m
     value_template: "{{value_json.x}}"
   - platform: mqtt
     name: Steven Beacon Y Position
-    state_topic: 'espresense/ips/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949'
+    state_topic: 'roomDetection/position/426c7565436861726d426561636f6e7338384949'
     unit_of_measurement: m
     value_template: "{{value_json.y}}"
+  
+  - platform: mqtt
+    name: Steven Beacon Office RA RSSI
+    state_topic: 'room-assistant/entity/office/bluetooth-low-energy-presence-sensor/ble-426c7565436861726d426561636f6e73-3838-4949'
+    unit_of_measurement: dBm
+    value_template: "{{value_json.entity.measuredValues.office.rssi}}"
+  - platform: mqtt
+    name: Steven Beacon Office RA RSSI
+    state_topic: 'room-assistant/entity/bedroom/bluetooth-low-energy-presence-sensor/ble-426c7565436861726d426561636f6e73-3838-4949'
+    unit_of_measurement: dBm
+    value_template: "{{value_json.entity.measuredValues.bedroom.rssi}}"
+  - platform: mqtt
+    name: Steven Beacon Office RA RSSI
+    state_topic: 'room-assistant/entity/office_bathroom/bluetooth-low-energy-presence-sensor/ble-426c7565436861726d426561636f6e73-3838-4949'
+    unit_of_measurement: dBm
+    value_template: "{{value_json.entity.measuredValues.office_bathroom.rssi}}"
+
   - platform: mqtt
     name: Steven Beacon RSSI Office
     state_topic: 'espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/office'

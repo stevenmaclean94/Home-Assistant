@@ -30,31 +30,35 @@ master_bathroom_humidity:
   humidity_sensor: sensor.bathroom_humidity
   humidity_trigger: input_number.humidity_trigger
 
-detect_room:
+presence_lights:
   module: PresenceLights
   class: PresenceLights
-  sensors:
-    office: sensor.steven_beacon_rssi_office_2
-    living_room: sensor.steven_beacon_rssi_living_room_2
-    kitchen: sensor.steven_beacon_rssi_kitchen_2
-    bedroom: sensor.steven_beacon_rssi_bedroom_2
+
+morning_routine:
+  module: MorningRoutine
+  class: MorningRoutine
 
 
-ESPresenseIps:
-  module: espresense-ips
-  class: ESPresenseIps
+room_detection:
+  module: RoomDetection
+  class: RoomDetection
   pluggins:
     - MQTT
-  rooms:
+  ep_rooms:
     office: [0., 2.7, 0.]
     living_room: [6.8, -0.9, 0.]
     kitchen: [3.3, 6.5, 0.]
     bedroom: [9.8, 3.9, 0.]
+  ra_rooms:
+    office: [2.4, 0., 0.]
+    office_bathroom: [1.75, 8., 0.]
+    bedroom: [7.8, 2.7, 0.]
   devices:
-  - id: iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949
+  # - id: 426c7565436861726d426561636f6e7238384949
+  #   name: Allison Beacon
+  - id: 426c7565436861726d426561636f6e7338384949
     name: Steven Beacon
-    timeout: 30
-    away_timeout: 120
+  allowed_time_delta: 1
   roomplans:
   - name: living_room
     y1: -0.9
@@ -86,3 +90,50 @@ ESPresenseIps:
     x1: 0.0
     y2: 8.3
     x2: 3.3
+
+# ESPresenseIps:
+#   module: espresense-ips
+#   class: ESPresenseIps
+#   pluggins:
+#     - MQTT
+#   rooms:
+#     office: [0., 2.7, 0.]
+#     living_room: [6.8, -0.9, 0.]
+#     kitchen: [3.3, 6.5, 0.]
+#     bedroom: [9.8, 3.9, 0.]
+#   devices:
+#   - id: iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949
+#     name: Steven Beacon
+#     timeout: 30
+#     away_timeout: 120
+#   roomplans:
+#   - name: living_room
+#     y1: -0.9
+#     x1: 4.5
+#     y2: 4.0
+#     x2: 7.8
+#   - name: kitchen
+#     y1: 4.0
+#     x1: 3.3
+#     y2: 8.3
+#     x2: 6.9
+#   - name: bathroom
+#     y1: 4.4
+#     x1: 6.9
+#     y2: 8.3
+#     x2: 9.3
+#   - name: bedroom
+#     y1: 0.0
+#     x1: 7.8
+#     y2: 4.4
+#     x2: 11.9
+#   - name: office
+#     y1: 0.0
+#     x1: 0.0
+#     y2: 3.6
+#     x2: 4.5
+#   - name: office_bathroom
+#     y1: 3.6
+#     x1: 0.0
+#     y2: 8.3
+#     x2: 3.3
