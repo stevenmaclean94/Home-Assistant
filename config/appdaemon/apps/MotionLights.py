@@ -12,9 +12,9 @@ class MotionLights(hass.Hass):
         self.listen_state(self.__humidity_change, self.args["sensors"]["humidity"])
     def __motion_detected(self, entity, attribute, old, new, kwargs):
         self.turn_on(self.args["light"])
-
+        self.cancel_timer(self.timer) 
     def __motion_stopped(self, entity, attribute, old, new, kwargs):
-        self.__set_timer()
+        self.__set_timer()  
 
     def __humidity_change(self, entity, attribute, old, new, kwargs):
         if float(new) > 75.0:               

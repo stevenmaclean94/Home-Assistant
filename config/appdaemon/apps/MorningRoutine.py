@@ -8,9 +8,9 @@ class MorningRoutine(hass.Hass):
         self.mqtt.mqtt_unsubscribe("SleepAsAndroid")
         self.mqtt.mqtt_subscribe("SleepAsAndroid")
 
-        self.mqtt.listen_event(self.print_mqtt, 'MQTT_MESSAGE', topic="SleepAsAndroid")
+        self.mqtt.listen_event(self.handle_alarm, 'MQTT_MESSAGE', topic="SleepAsAndroid")
 
-    def print_mqtt(self, event_name, data, kwargs):
+    def handle_alarm(self, event_name, data, kwargs):
         self.log('Event Incoming: ' + event_name + " with Data: ")
         self.log(data)
         payload = data.get("payload")
@@ -26,16 +26,15 @@ class MorningRoutine(hass.Hass):
         self.log(event)
         # Handle the various events from SleepAsAndroid mqtt topic
         if event == "alarm_alert_start":
-            self.turn_on("switch.coffee_maker")
-            self.call_service("light/turn_on", entity_id = "light.bedroom", kelvin = 2500, brightness=255, transition=10)
+            self.run_in(self, self.turn_on_light, 0, entity_id = "light.bedroom", kelvin = 5000, brightness=255, transition=10)
         elif event == "sleep_tracking_started":
-            self.call_service("scene/apply", entity_id="scene.turn_off_all_lights")
+            self.call_service("scene/turn_on", entity_id="scene.goodnight")
         elif event == "smart_period":
-            self.call_service("light/turn_on", entity_id = "light.bedroom", color_name = "red", brightness=1)
-            self.call_service("light/turn_on", entity_id = "light.bedroom", kelvin = 2500, brightness=255, transition=1800)
+            self.run_in(self, self.turn_on_light, 0, entity_id = "light.bedroom", color_name = "red", brightness=1)
+            self.run_in(self, self.turn_on_light, 0,  entity_id = "light.bedroom", kelvin = 4500, brightness=255, transition=1800)
         elif event == "alarm_snooze_clicked":
-            self.call_service("light/turn_on", entity_id = "light.bedroom", color_name = "darkorange", brightness=20, transition=10)
-            self.call_service("light/turn_on", entity_id = "light.bedroom", kelvin = 2500, brightness=255, transition=500)
+            self.run_in(self, self.turn_on_light, 0,  entity_id = "light.bedroom", color_name = "darkorange", brightness=20, transition=10)
+            self.run_in(self, self.turn_on_light, 10, entity_id = "light.bedroom", kelvin = 2500, brightness=255, transition=500)
         elif event == "alarm_alert_dismiss":
             pass
         elif event == "alarm_skip_next":
@@ -57,3 +56,11 @@ class MorningRoutine(hass.Hass):
             pass
         value1 = payload_json.get("value1")
         value2 = payload_json.get("value2")
+
+    def turn_on_light(self, kwargs):
+        if 'color_name' in kwargs:
+            self.call_service("light/turn_on", entity_id = kwargs['entity'], color_name = kwargs['color_name'], brightness = kwargs['brightness'], transition = kwargs['transition_time'])
+        elif 'temperature' in kwargs:
+            self.call_service("light/turn_on", entity_id = kwargs['entity'], kelvin = kwargs['temperature'], brightness = kwargs['brightness'], transition = kwargs['transition_time'])
+        else:
+            self.call_service("light/turn_on", entity_id = kwargs['entity'], brightness = kwargs['brightness'], transition = kwargs['transition_time'])
