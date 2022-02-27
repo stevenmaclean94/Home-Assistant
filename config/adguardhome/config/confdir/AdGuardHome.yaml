@@ -17,7 +17,7 @@ dns:
   statistics_interval: 90
   querylog_enabled: true
   querylog_file_enabled: true
-  querylog_interval: 2160h
+  querylog_interval: 168h
   querylog_size_memory: 1000
   anonymize_client_ip: true
   protection_enabled: true
@@ -123,7 +123,9 @@ filters:
   name: Perflyst and Dandelion Sprout's Smart-TV Blocklist
   id: 1643396811
 whitelist_filters: []
-user_rules: []
+user_rules:
+- '#||api.xbcs.net^$important'
+- ""
 dhcp:
   enabled: false
   interface_name: ""

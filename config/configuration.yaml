@@ -1,6 +1,20 @@
-
 # Configure a default setup of Home Assistant (frontend, api, etc)
 default_config:
+
+# panel_iframe:
+#   router:
+#     title: "ESPHome"
+#     url: "http://192.168.10.6:6152"
+#     require_admin: true
+#   fridge:
+#     title: "Adguard Home"
+#     url: "http://192.168.10.6:3030"
+#     icon: mdi:fridge
+#     require_admin: true
+#   zwave_js:
+#     title: "ZwaveJS2Mqtt"
+#     url: "http://192.168.10.6:8091"
+#     require_admin: true
 
 # Text to speech
 tts:
@@ -14,7 +28,7 @@ scene: !include scenes.yaml
 sensor:
   - platform: mqtt_room
     name: "Steven's IPS Room"
-    state_topic: 'roomDetection/rooms'
+    state_topic: "roomDetection/rooms"
     device_id: "426c7565436861726d426561636f6e7338384949"
     timeout: 60
     away_timeout: 120
@@ -27,50 +41,50 @@ sensor:
 
   - platform: mqtt
     name: Steven Beacon X Position
-    state_topic: 'roomDetection/position/426c7565436861726d426561636f6e7338384949'
+    state_topic: "roomDetection/position/426c7565436861726d426561636f6e7338384949"
     unit_of_measurement: m
     value_template: "{{value_json.x}}"
   - platform: mqtt
     name: Steven Beacon Y Position
-    state_topic: 'roomDetection/position/426c7565436861726d426561636f6e7338384949'
+    state_topic: "roomDetection/position/426c7565436861726d426561636f6e7338384949"
     unit_of_measurement: m
     value_template: "{{value_json.y}}"
-  
+
   - platform: mqtt
     name: Steven Beacon Office RA RSSI
-    state_topic: 'room-assistant/entity/office/bluetooth-low-energy-presence-sensor/ble-426c7565436861726d426561636f6e73-3838-4949'
+    state_topic: "room-assistant/entities/office/bluetooth-low-energy-presence-sensor/ble-426c7565436861726d426561636f6e73-3838-4949"
     unit_of_measurement: dBm
     value_template: "{{value_json.entity.measuredValues.office.rssi}}"
   - platform: mqtt
-    name: Steven Beacon Office RA RSSI
-    state_topic: 'room-assistant/entity/bedroom/bluetooth-low-energy-presence-sensor/ble-426c7565436861726d426561636f6e73-3838-4949'
+    name: Steven Beacon Bedroom RA RSSI
+    state_topic: "room-assistant/entities/bedroom/bluetooth-low-energy-presence-sensor/ble-426c7565436861726d426561636f6e73-3838-4949"
     unit_of_measurement: dBm
     value_template: "{{value_json.entity.measuredValues.bedroom.rssi}}"
   - platform: mqtt
-    name: Steven Beacon Office RA RSSI
-    state_topic: 'room-assistant/entity/office_bathroom/bluetooth-low-energy-presence-sensor/ble-426c7565436861726d426561636f6e73-3838-4949'
+    name: Steven Beacon Office Bathroom RA RSSI
+    state_topic: "room-assistant/entities/office-bathroom/bluetooth-low-energy-presence-sensor/ble-426c7565436861726d426561636f6e73-3838-4949"
     unit_of_measurement: dBm
     value_template: "{{value_json.entity.measuredValues.office_bathroom.rssi}}"
 
   - platform: mqtt
     name: Steven Beacon RSSI Office
-    state_topic: 'espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/office'
+    state_topic: "espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/office"
     unit_of_measurement: dBm
     value_template: "{{value_json.rssi}}"
     json_attributes_topic: espresense/location/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949
   - platform: mqtt
     name: Steven Beacon RSSI Living Room
-    state_topic: 'espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/living_room'
+    state_topic: "espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/living_room"
     unit_of_measurement: dBm
     value_template: "{{value_json.rssi}}"
   - platform: mqtt
     name: Steven Beacon RSSI Kitchen
-    state_topic: 'espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/kitchen'
+    state_topic: "espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/kitchen"
     unit_of_measurement: dBm
     value_template: "{{value_json.rssi}}"
   - platform: mqtt
     name: Steven Beacon RSSI Bedroom
-    state_topic: 'espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/bedroom'
+    state_topic: "espresense/devices/iBeacon:426c7565-4368-6172-6d42-6561636f6e73-3838-4949/bedroom"
     unit_of_measurement: dBm
     value_template: "{{value_json.rssi}}"
 notify:
@@ -78,19 +92,18 @@ notify:
     name: filenotify
     filename: /config/1sec_rssi_reading.csv
 
-#fan: 
+#fan:
 #  - platform: xiaomi_miio_fan
 #    name: Pedastal Fan
 #    host: 192.168.10.203
 #    token: !secret fan_token
 
 rest_command:
-    open_door: 
-        url: !secret door_webhook
-    open_garage: 
-        url: !secret garage_webhook
-    open_bike:
-        url: !secret bike_webhook
+  open_door_native:
+    url: 'https://panel-10728wg.pdk.io/api/devices/{{door_id}}/virtual_read'
+    method: post
+    headers:
+      authorization: !secret pdk_token
 emulated_kasa:
   entities:
     switch.desktop:
@@ -114,8 +127,6 @@ emulated_kasa:
     switch.office_bathroom_fan:
       name: Office Bathroom Fan
       power: 9
-
-    
 # input_number:
 #   beer_og:
 #     name: Starting Gravity
@@ -126,72 +137,72 @@ emulated_kasa:
 #     icon: mdi:thermometer-lines
 # template:
 #   - sensor:
-    # - name: "mail_deliveries_message"
-    #   state_value_template: > 
-    #     {# Deliveries Sentence #}
-    #       {% macro deliveries_sentence() -%}
-    #             {%- if states("sensor.mail_usps_mail")|int == 0 -%}
-    #               No
-    #             {%- else -%}
-    #               {{states("sensor.mail_usps_mail")|int}}
-    #             {%- endif -%}
-    #           {{' '}} 
-    #             {%- if states("sensor.mail_usps_mail")|int <= 1 -%}
-    #               pieces of mail
-    #             {%- else -%}
-    #               pieces of mail
-    #             {%- endif -%}
-    #           {{' '}}will be delivered.{{' '}} 
-    #             {%- if states("sensor.mail_usps_delivering")|int == 0 -%}
-    #               No
-    #             {%- else -%}
-    #               {{states("sensor.mail_usps_delivering")|int}}
-    #             {%- endif -%}
-    #           {{' '}} 
-    #             {%- if states("sensor.mail_usps_delivering")|int == 1 -%}
-    #               USPS package is
-    #             {%- else -%}
-    #               USPS packages are
-    #             {%- endif -%}
-    #           {{' '}}in transit.{{' '}}
-    #             {%- if states("sensor.mail_fedex_delivering")|int == 0 -%}
-    #               No
-    #             {%- else -%}
-    #               {{states("sensor.mail_fedex_delivering")|int}}
-    #             {%- endif -%}
-    #           {{' '}} 
-    #             {%- if states("sensor.mail_fedex_delivering")|int == 1 -%}
-    #               FedEx package is
-    #             {%- else -%}
-    #               Fedex packages are
-    #             {%- endif -%}
-    #           {{' '}}in transit.{{' '}}
-    #           {%- if states("sensor.mail_ups_delivering")|int == 0 -%}
-    #               No
-    #             {%- else -%}
-    #               {{states("sensor.mail_ups_delivering")|int}}
-    #             {%- endif -%}
-    #           {{' '}} 
-    #             {%- if states("sensor.mail_ups_delivering")|int == 1 -%}
-    #               UPS package is
-    #             {%- else -%}
-    #               UPS packages are
-    #             {%- endif -%}
-    #           {{' '}}in transit.{{' '}}
-    #           {%- if states("sensor.mail_amazon_packages")|int == 0 -%}
-    #               No
-    #             {%- else -%}
-    #               {{states("sensor.mail_amazon_packages")|int}}
-    #             {%- endif -%}
-    #           {{' '}} 
-    #             {%- if states("sensor.mail_amazon_packages")|int == 1 -%}
-    #               Amazon package is
-    #             {%- else -%}
-    #               Amazon packages are
-    #             {%- endif -%}
-    #           {{' '}}in transit.{{' '}}
-    #       {%- endmacro %}
-    #     {{deliveries_sentence()}}
-    # - name: "Desktop Power kWh"
-    #   unit_of_measurement: "kWh"
-    #   state: sensor.desktop_energy_today
+# - name: "mail_deliveries_message"
+#   state_value_template: >
+#     {# Deliveries Sentence #}
+#       {% macro deliveries_sentence() -%}
+#             {%- if states("sensor.mail_usps_mail")|int == 0 -%}
+#               No
+#             {%- else -%}
+#               {{states("sensor.mail_usps_mail")|int}}
+#             {%- endif -%}
+#           {{' '}}
+#             {%- if states("sensor.mail_usps_mail")|int <= 1 -%}
+#               pieces of mail
+#             {%- else -%}
+#               pieces of mail
+#             {%- endif -%}
+#           {{' '}}will be delivered.{{' '}}
+#             {%- if states("sensor.mail_usps_delivering")|int == 0 -%}
+#               No
+#             {%- else -%}
+#               {{states("sensor.mail_usps_delivering")|int}}
+#             {%- endif -%}
+#           {{' '}}
+#             {%- if states("sensor.mail_usps_delivering")|int == 1 -%}
+#               USPS package is
+#             {%- else -%}
+#               USPS packages are
+#             {%- endif -%}
+#           {{' '}}in transit.{{' '}}
+#             {%- if states("sensor.mail_fedex_delivering")|int == 0 -%}
+#               No
+#             {%- else -%}
+#               {{states("sensor.mail_fedex_delivering")|int}}
+#             {%- endif -%}
+#           {{' '}}
+#             {%- if states("sensor.mail_fedex_delivering")|int == 1 -%}
+#               FedEx package is
+#             {%- else -%}
+#               Fedex packages are
+#             {%- endif -%}
+#           {{' '}}in transit.{{' '}}
+#           {%- if states("sensor.mail_ups_delivering")|int == 0 -%}
+#               No
+#             {%- else -%}
+#               {{states("sensor.mail_ups_delivering")|int}}
+#             {%- endif -%}
+#           {{' '}}
+#             {%- if states("sensor.mail_ups_delivering")|int == 1 -%}
+#               UPS package is
+#             {%- else -%}
+#               UPS packages are
+#             {%- endif -%}
+#           {{' '}}in transit.{{' '}}
+#           {%- if states("sensor.mail_amazon_packages")|int == 0 -%}
+#               No
+#             {%- else -%}
+#               {{states("sensor.mail_amazon_packages")|int}}
+#             {%- endif -%}
+#           {{' '}}
+#             {%- if states("sensor.mail_amazon_packages")|int == 1 -%}
+#               Amazon package is
+#             {%- else -%}
+#               Amazon packages are
+#             {%- endif -%}
+#           {{' '}}in transit.{{' '}}
+#       {%- endmacro %}
+#     {{deliveries_sentence()}}
+# - name: "Desktop Power kWh"
+#   unit_of_measurement: "kWh"
+#   state: sensor.desktop_energy_today

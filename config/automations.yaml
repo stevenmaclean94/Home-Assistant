@@ -6,9 +6,108 @@
   action:
   - service: notify.filenotify
     data_template:
-      message: '{{states.input_select.room_for_training.last_changed}}, {{states.input_select.room_for_training.state
-        }},  {{states.sensor.steven_beacon_rssi_bedroom_2.last_changed }},  {{states.sensor.steven_beacon_rssi_bedroom_2.state
-        }},  {{states.sensor.steven_beacon_rssi_kitchen_2.last_changed }}, {{states.sensor.steven_beacon_rssi_kitchen_2.state
-        }},  {{states.sensor.steven_beacon_rssi_living_room_2.last_changed }},  {{states.sensor.steven_beacon_rssi_living_room_2.state
-        }},  {{states.sensor.steven_beacon_rssi_office_2.last_changed }}, {{states.sensor.steven_beacon_rssi_office_2.state
-        }}'
+      message: '{{utcnow()}}, {{states.input_select.room_for_training.last_changed}},
+        {{states.input_select.room_for_training.state }},  {{states.sensor.steven_beacon_bedroom_rssi_filtered.last_changed
+        }},  {{states.sensor.steven_beacon_bedroom_rssi_filtered.state }},  {{states.sensor.steven_beacon_kitchen_rssi_filtered.last_changed
+        }}, {{states.sensor.steven_beacon_kitchen_rssi_filtered.state }},  {{states.sensor.steven_beacon_living_room_rssi_filtered.last_changed
+        }},  {{states.sensor.steven_beacon_living_room_rssi_filtered.state }}, {{states.sensor.steven_beacon_office_rssi_filtered.last_changed
+        }}, {{states.sensor.steven_beacon_office_rssi_filtered.state }}, {{states.sensor.steven_beacon_bedroom_ra_rssi.last_changed
+        }}, {{states.sensor.steven_beacon_bedroom_ra_rssi.state }}, {{states.sensor.steven_beacon_office_bathroom_ra_rssi.last_changed
+        }}, {{states.sensor.steven_beacon_office_bathroom_ra_rssi.state }}, {{states.sensor.steven_beacon_office_ra_rssi.last_changed
+        }}, {{states.sensor.steven_beacon_office_ra_rssi.state }}'
+- id: '1644689409969'
+  alias: Update Heater PWM
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_number.target_pwm
+  condition: []
+  action:
+  - service: esphome.brewstation_set_heater_percent_pwm
+    data:
+      percentage: '{{ trigger.to_state.state | int }}'
+  mode: single
+- id: '1645067892736'
+  alias: Open Door
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_button.outside_door
+  condition: []
+  action:
+  - service: rest_command.open_door_native
+    data:
+      door_id: 4
+  mode: single
+- id: '1645068962971'
+  alias: Open Garage
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_button.garage_door
+  condition: []
+  action:
+  - service: rest_command.open_door_native
+    data:
+      door_id: 33
+  mode: single
+- id: '1645068996782'
+  alias: Open Bike Door
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_button.bike_door
+  condition: []
+  action:
+  - service: rest_command.open_door_native
+    data:
+      door_id: 33
+  mode: single
+- id: '1645069103015'
+  alias: Open Stair Door
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_button.stair_door
+  condition: []
+  action:
+  - service: rest_command.open_door_native
+    data:
+      door_id: 2
+  mode: single
+- id: '1645069115040'
+  alias: Open Pool Door
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_button.pool_door
+  condition: []
+  action:
+  - service: rest_command.open_door_native
+    data:
+      door_id: 35
+  mode: single
+- id: '1645069166548'
+  alias: Open Car Door
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_button.car_door
+  condition: []
+  action:
+  - service: rest_command.open_door_native
+    data:
+      door_id: 38
+  mode: single
+- id: '1645069204223'
+  alias: Open Pool Gate
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_button.pool_gate
+  condition: []
+  action:
+  - service: rest_command.open_door_native
+    data:
+      door_id: 49
+  mode: single
